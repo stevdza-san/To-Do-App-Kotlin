@@ -1,1 +1,1 @@
-# To-Do App Developet in Kotlin for the purpose of an online course
+# To-Do App Developed in Kotlin for the purpose of an online course
