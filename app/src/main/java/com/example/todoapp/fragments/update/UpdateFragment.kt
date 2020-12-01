@@ -14,7 +14,6 @@ import com.example.todoapp.data.viewmodel.ToDoViewModel
 import com.example.todoapp.databinding.FragmentUpdateBinding
 import com.example.todoapp.fragments.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
-import kotlinx.android.synthetic.main.fragment_update.view.*
 
 class UpdateFragment : Fragment() {
 
@@ -29,7 +28,7 @@ class UpdateFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Data binding
         _binding = FragmentUpdateBinding.inflate(inflater, container, false)
         binding.args = args

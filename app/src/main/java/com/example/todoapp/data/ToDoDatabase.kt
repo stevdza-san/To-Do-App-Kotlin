@@ -48,8 +48,7 @@ abstract class ToDoDatabase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 ToDoDatabase::class.java, "todo_database"
-            )
-                .build()
+            ).build()
     }
 
 }

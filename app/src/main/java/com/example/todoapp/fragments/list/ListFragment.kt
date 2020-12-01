@@ -32,7 +32,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Data binding
         _binding = FragmentListBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
@@ -42,7 +42,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         setupRecyclerview()
 
         // Observe LiveData
-        mToDoViewModel.getAllData.observe(viewLifecycleOwner, Observer { data ->
+        mToDoViewModel.getAllData.observe(viewLifecycleOwner, { data ->
             mSharedViewModel.checkIfDatabaseEmpty(data)
             adapter.setData(data)
         })
@@ -106,8 +106,8 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delete_all -> confirmRemoval()
-            R.id.menu_priority_high -> mToDoViewModel.sortByHighPriority.observe(this, Observer { adapter.setData(it) })
-            R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(this, Observer { adapter.setData(it) })
+            R.id.menu_priority_high -> mToDoViewModel.sortByHighPriority.observe(this, { adapter.setData(it) })
+            R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(this, { adapter.setData(it) })
         }
         return super.onOptionsItemSelected(item)
     }
@@ -129,7 +129,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun searchThroughDatabase(query: String) {
         val searchQuery = "%$query%"
 
-        mToDoViewModel.searchDatabase(searchQuery).observe(this, Observer { list ->
+        mToDoViewModel.searchDatabase(searchQuery).observe(this, { list ->
             list?.let {
                 adapter.setData(it)
             }

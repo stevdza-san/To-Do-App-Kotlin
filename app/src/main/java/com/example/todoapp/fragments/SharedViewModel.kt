@@ -1,7 +1,6 @@
 package com.example.todoapp.fragments
 
 import android.app.Application
-import android.text.TextUtils
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
