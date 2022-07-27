@@ -3,6 +3,8 @@ package com.example.todoapp.fragments.add
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -27,24 +29,27 @@ class AddFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentAddBinding.inflate(layoutInflater, container, false)
 
-        // Set Menu
-        setHasOptionsMenu(true)
-
         // Spinner Item Selected Listener
         binding.prioritiesSpinner.onItemSelectedListener = mSharedViewModel.listener
 
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.add_fragment_menu, menu)
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.add_fragment_menu, menu)
+            }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.menu_add){
-            insertDataToDb()
-        }
-        return super.onOptionsItemSelected(item)
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if (menuItem.itemId == R.id.menu_add) {
+                    insertDataToDb()
+                }
+                return true
+            }
+        })
     }
 
     private fun insertDataToDb() {
@@ -53,7 +58,7 @@ class AddFragment : Fragment() {
         val mDescription = binding.descriptionEt.text.toString()
 
         val validation = mSharedViewModel.verifyDataFromUser(mTitle, mDescription)
-        if(validation){
+        if (validation) {
             // Insert Data to Database
             val newData = ToDoData(
                 0,
@@ -65,8 +70,9 @@ class AddFragment : Fragment() {
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
             // Navigate Back
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
-        }else{
-            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
