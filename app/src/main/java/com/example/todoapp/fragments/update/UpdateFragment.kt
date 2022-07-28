@@ -8,6 +8,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.todoapp.R
@@ -52,10 +53,11 @@ class UpdateFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.menu_save -> updateItem()
                     R.id.menu_delete -> confirmItemRemoval()
+                    android.R.id.home -> requireActivity().onBackPressed()
                 }
                 return true
             }
-        })
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun updateItem() {

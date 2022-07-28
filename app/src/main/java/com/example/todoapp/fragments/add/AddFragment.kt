@@ -7,6 +7,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.todoapp.R
 import com.example.todoapp.data.models.ToDoData
@@ -46,10 +47,12 @@ class AddFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 if (menuItem.itemId == R.id.menu_add) {
                     insertDataToDb()
+                } else if (menuItem.itemId == android.R.id.home) {
+                    requireActivity().onBackPressed()
                 }
                 return true
             }
-        })
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun insertDataToDb() {
