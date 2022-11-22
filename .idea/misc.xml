@@ -3,11 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Rodrigo Cavalcante/AndroidStudioProjects/To-Do-App-Kotlin/app/src/main/res/layout/activity_main.xml" value="0.18177083333333333" />
+        <entry key="..\:/Users/Rodrigo Cavalcante/AndroidStudioProjects/To-Do-App-Kotlin/app/src/main/res/layout/fragment_login.xml" value="0.33" />
+        <entry key="..\:/Users/Rodrigo Cavalcante/AndroidStudioProjects/To-Do-App-Kotlin/app/src/main/res/layout/fragment_login1.xml" value="0.1" />
+        <entry key="..\:/Users/Rodrigo Cavalcante/AndroidStudioProjects/To-Do-App-Kotlin/app/src/main/res/layout/fragment_login2.xml" value="0.1" />
+        <entry key="..\:/Users/Rodrigo Cavalcante/AndroidStudioProjects/To-Do-App-Kotlin/app/src/main/res/layout/fragment_sign_up.xml" value="0.1" />
         <entry key="..\:/Users/Stefan/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/row_layout.xml" value="0.18342391304347827" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

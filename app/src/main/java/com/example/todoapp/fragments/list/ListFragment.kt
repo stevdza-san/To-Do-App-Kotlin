@@ -23,6 +23,7 @@ import com.example.todoapp.fragments.list.adapter.ListAdapter
 import com.example.todoapp.utils.hideKeyboard
 import com.example.todoapp.utils.observeOnce
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 
 class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
@@ -33,6 +34,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private val binding get() = _binding!!
 
     private val adapter: ListAdapter by lazy { ListAdapter() }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
