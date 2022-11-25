@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Rodrigo Cavalcante/AndroidStudioProjects/To-Do-App-Kotlin/app/src/main/res/drawable-v24/ic_registration_success.xml" value="0.1" />
         <entry key="..\:/Users/Rodrigo Cavalcante/AndroidStudioProjects/To-Do-App-Kotlin/app/src/main/res/layout/activity_main.xml" value="0.18177083333333333" />
+        <entry key="..\:/Users/Rodrigo Cavalcante/AndroidStudioProjects/To-Do-App-Kotlin/app/src/main/res/layout/bottom_sheet_dialog_registration_success.xml" value="0.1" />
         <entry key="..\:/Users/Rodrigo Cavalcante/AndroidStudioProjects/To-Do-App-Kotlin/app/src/main/res/layout/fragment_login.xml" value="0.33" />
         <entry key="..\:/Users/Rodrigo Cavalcante/AndroidStudioProjects/To-Do-App-Kotlin/app/src/main/res/layout/fragment_login1.xml" value="0.1" />
         <entry key="..\:/Users/Rodrigo Cavalcante/AndroidStudioProjects/To-Do-App-Kotlin/app/src/main/res/layout/fragment_login2.xml" value="0.1" />

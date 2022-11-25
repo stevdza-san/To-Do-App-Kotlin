@@ -20,6 +20,13 @@
         <item>Low Priority</item>
     </string-array>
 
+    <string name="registration_success_title">You\'re all set!</string>
+    <string name="registration_success_subtitle">It\'s time to sweat! We look forward to seeing you soon!</string>
+
+    <string name="welcome_username">Welcome, %s !</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="msg">Your username is: %s</string>
     <string name="password_error">Password must have at least 6 characters</string>
     <string name="email_error">Invalid email</string>
     <string name="email_hint">E-mail</string>

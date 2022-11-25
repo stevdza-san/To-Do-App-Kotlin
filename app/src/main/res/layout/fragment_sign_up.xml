@@ -1,10 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-        <EditText android:id="@+id/usernameInput" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginEnd="32dp" android:layout_marginStart="32dp" android:layout_marginTop="30dp" android:hint="@string/username_hint" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
-        <EditText android:id="@+id/emailInput" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginEnd="32dp" android:layout_marginStart="32dp" android:layout_marginTop="30dp" android:hint="@string/email_hint" android:inputType="textEmailAddress" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/usernameInput"/>
-        <EditText android:id="@+id/passwordInput" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginEnd="32dp" android:layout_marginStart="32dp" android:layout_marginTop="30dp" android:hint="@string/password_hint" android:inputType="textPassword" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/emailInput"/>
-        <EditText android:id="@+id/repeatPasswordInput" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginEnd="32dp" android:layout_marginStart="32dp" android:layout_marginTop="30dp" android:hint="@string/repeat_password_hint" android:inputType="textPassword" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/passwordInput"/>
-        <Button android:id="@+id/registerButton" android:layout_width="0dp" android:layout_height="56dp" android:layout_marginBottom="48dp" android:layout_marginEnd="32dp" android:layout_marginStart="32dp" android:layout_marginTop="48dp" android:gravity="center" android:text="@string/register_button" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/repeatPasswordInput"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewmodel"
+            type="com.example.todoapp.fragments.ui.sign_up.SignUpViewModel">
+        </variable>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="32dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="32dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/registerTitleTextView"
+                style="@style/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/registerSubtitleTextView"
+                style="@style/Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="32dp"
+                android:text="You're one step away from joining SweatBar."
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/registerTitleTextView" />
+
+            <EditText
+                android:id="@+id/firstNameEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="30dp"
+                android:hint="@string/first_name"
+                android:inputType="textPersonName"
+                android:nextFocusDown="@+id/lastNameEditText"
+                app:layout_constraintEnd_toStartOf="@+id/lastNameEditText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/registerSubtitleTextView"
+                tools:ignore="Autofill" />
+
+            <EditText
+                android:id="@+id/lastNameEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/last_name"
+                android:inputType="textPersonName"
+                android:nextFocusDown="@+id/emailEditText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/firstNameEditText"
+                app:layout_constraintTop_toBottomOf="@+id/registerSubtitleTextView"
+                tools:ignore="Autofill" />
+
+
+            <EditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/email_hint"
+                android:inputType="textEmailAddress"
+                android:error="@{viewmodel.emailError}"
+                android:text="@={viewmodel.email}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/firstNameEditText"
+                tools:ignore="Autofill" />
+
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/password_hint"
+                android:inputType="textPassword"
+                android:error="@{viewmodel.passwordError}"
+                android:text="@={viewmodel.password}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emailEditText" />
+
+            <EditText
+                android:id="@+id/repeatPasswordEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/repeat_password_hint"
+                android:inputType="textPassword"
+                android:error="@{viewmodel.repeatPasswordError}"
+                android:text="@={viewmodel.repeatPassword}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/passwordEditText" />
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="48dp"
+                android:gravity="center"
+                android:text="@string/register_button"
+                android:onClick="@{(view) -> viewmodel.onSignupButtonClick()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/repeatPasswordEditText" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
