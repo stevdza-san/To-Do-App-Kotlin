@@ -1,10 +1,10 @@
 package com.example.todoapp.fragments.ui.sign_up
 
-import android.util.Log
 import android.util.Patterns
 import android.widget.EditText
 import androidx.lifecycle.*
 import com.example.todoapp.data.common.isValidEmail
+import com.example.todoapp.data.common.isValidPassword
 import com.example.todoapp.data.firebase.AccountServiceImpl
 
 class SignUpViewModel(private val accountService: AccountServiceImpl) : ViewModel() {
@@ -155,20 +155,34 @@ class SignUpViewModel(private val accountService: AccountServiceImpl) : ViewMode
         }
     }
 
-    private val emailF = MutableLiveData(true)
-    var emailf: LiveData<Boolean> = emailF
+    private val _emailIsValid = MutableLiveData(true)
+    var emailIsValid: LiveData<Boolean> = _emailIsValid
 
     fun showEmailError() {
         emailError.value = emailValidator.validate(email.value)
     }
 
+    private val _passwordIsValid = MutableLiveData(true)
+    var passwordIsValid: LiveData<Boolean> = _passwordIsValid
+
+    fun showPasswordError() {
+        passwordError.value = passwordValidator.validate(password.value)
+    }
+
+    fun onPasswordChanged(newValue: String) {
+        state.value?.let {
+            state.value = it.copy(password = newValue)
+        }
+        _passwordIsValid.value = newValue.isValidPassword()
+    }
+
     fun onEmailChanged(newValue: String) {
+
         state.value?.let {
             state.value = it.copy(email = newValue)
         }
-        if (!newValue.isValidEmail()) {
-            emailF.value = false
-        }
+
+        _emailIsValid.value = newValue.isValidEmail()
     }
 
     fun validateEmail() {
