@@ -31,53 +31,37 @@ class SignUpViewModel(private val accountService: AccountServiceImpl) : ViewMode
         var repeatPassword: String = ""
     )
 
-
-    fun emailEditText() {
-
-    }
-
-    private fun some() {
-
-    }
-
     fun onSignupButtonClick() {
-        passwordError.value = passwordValidator.validate(password.value)
-        passwordError.value = passwordValidator.validate(password.value)
-        repeatPasswordError.value =
-            repeatPasswordValidator.validate(password.value, repeatPassword.value)
-
 //        passwordError.value = passwordValidator.validate(password.value)
-//        usernameError.value = repeatPasswordValidator.validate(username.value)
+//        passwordError.value = passwordValidator.validate(password.value)
+//        repeatPasswordError.value =
+//            repeatPasswordValidator.validate(password.value, repeatPassword.value)
+
     }
 
-    //    private val _showRegistrationSuccessDialog = MutableLiveData(false)
-//    val showRegistrationSuccessDialog: LiveData<Boolean>
-//        get() = _showRegistrationSuccessDialog
-//
-//    data class UiStateFirstName(
-//        var name: String?
-//    )
-//
-//    private val uiStateFirstName: MutableLiveData<UiStateFirstName> by lazy {
-//        MutableLiveData<UiStateFirstName>(UiStateFirstName(name = ""))
-//    }
-//
-//    fun getStateFirstName(): LiveData<UiStateFirstName> {
-//        return uiStateFirstName
-//    }
-//
-//    fun upDateFirstName(newValue: String) {
-//        uiStateFirstName.value?.let {
-//            uiStateFirstName.value = it.copy(name = newValue)
-//        }
-//    }
-//
-//    val lastName = MutableLiveData(DEFAULT_LAST_NAME)
-//    val email = MutableLiveData(DEFAULT_EMAIL)
-//    val password = MutableLiveData(DEFAULT_PASSWORD)
-//    val repeatPassword = MutableLiveData(DEFAULT_REPEAT_PASSWORD)
-//
-//
+    private val _showRegistrationSuccessDialog = MutableLiveData(false)
+    val showRegistrationSuccessDialog: LiveData<Boolean>
+        get() = _showRegistrationSuccessDialog
+
+    data class UiStateFirstName(
+        var name: String?
+    )
+
+    private val uiStateFirstName: MutableLiveData<UiStateFirstName> by lazy {
+        MutableLiveData<UiStateFirstName>(UiStateFirstName(name = ""))
+    }
+
+    fun getStateFirstName(): LiveData<UiStateFirstName> {
+        return uiStateFirstName
+    }
+
+    fun upDateFirstName(newValue: String) {
+        uiStateFirstName.value?.let {
+            uiStateFirstName.value = it.copy(name = newValue)
+        }
+    }
+
+    //
 //    val showUsername: LiveData<Boolean> = Transformations.map(email, ::isValidEmail)
 //    val username: LiveData<String> = Transformations.map(email, ::generateUsername)
 //
@@ -165,6 +149,14 @@ class SignUpViewModel(private val accountService: AccountServiceImpl) : ViewMode
     private val _passwordIsValid = MutableLiveData(true)
     var passwordIsValid: LiveData<Boolean> = _passwordIsValid
 
+    private val _repeatPasswordIsValid = MutableLiveData(true)
+    var repeatPasswordIsValid: LiveData<Boolean> = _repeatPasswordIsValid
+
+    fun showRepeatPasswordError() {
+        repeatPasswordError.value =
+            repeatPasswordValidator.validate(password.value, repeatPassword.value)
+    }
+
     fun showPasswordError() {
         passwordError.value = passwordValidator.validate(password.value)
     }
@@ -185,8 +177,8 @@ class SignUpViewModel(private val accountService: AccountServiceImpl) : ViewMode
         _emailIsValid.value = newValue.isValidEmail()
     }
 
-    fun validateEmail() {
-        TODO("Not yet implemented")
+    fun onRepeatPasswordChanged(newValue: String) {
+
     }
 }
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
@@ -45,34 +46,43 @@ class SignUpFragment : Fragment() {
 
         handleValidationFields()
 
+        handleTitleScreenByFirstNameEditText()
 
-        //onTextChanged { viewModel.onEmailChanged(it) }
-//        binding.passwordEditText.requestFocus()
-//        binding.passwordEditText.isCursorVisible = true
+        setupShowRegistrationMessage()
+    }
 
-//        viewModel.getStateFirstName()
-//            .observe(viewLifecycleOwner) {
-//                binding.registerTitleTextView.text = """Welcome, ${it.name.toString()}!"""
-//            }
-//        binding.firstNameEditText.onTextChanged { viewModel.upDateFirstName(it) }
-//
-//        viewModel.showRegistrationSuccessDialog.observe(viewLifecycleOwner) { showRegistrationSuccessDialog ->
-//            if (showRegistrationSuccessDialog) {
-//                showBottomSheetDialog()
-//            }
-//        }
+    private fun handleTitleScreenByFirstNameEditText() {
+        viewModel.getStateFirstName()
+            .observe(viewLifecycleOwner) {
+                binding.registerTitleTextView.text = """Welcome, ${it.name.toString()}!"""
+            }
+        binding.firstNameEditText.onTextChanged { viewModel.upDateFirstName(it) }
+    }
+
+    private fun setupShowRegistrationMessage() {
+        viewModel.showRegistrationSuccessDialog.observe(viewLifecycleOwner) { showRegistrationSuccessDialog ->
+            if (showRegistrationSuccessDialog) {
+                showBottomSheetDialog()
+            }
+        }
     }
 
     private fun handleValidationFields() {
         val emailEditText = binding.emailEditText
         val passwordEditText = binding.passwordEditText
         val repeatPasswordEditText = binding.repeatPasswordEditText
+        val signUpButton = binding.registerButton
 
         handleEmailField(emailEditText)
 
         handlePasswordField(emailEditText, passwordEditText, repeatPasswordEditText)
 
-        handleRepeatPasswordEditText(emailEditText, passwordEditText, repeatPasswordEditText)
+        handleRepeatPasswordEditText(
+            emailEditText,
+            passwordEditText,
+            repeatPasswordEditText,
+            signUpButton
+        )
 
 
     }
@@ -80,7 +90,8 @@ class SignUpFragment : Fragment() {
     private fun handleRepeatPasswordEditText(
         emailEditText: EditText,
         passwordEditText: EditText,
-        repeatPasswordEditText: EditText
+        repeatPasswordEditText: EditText,
+        signUpButton: Button
     ) {
         repeatPasswordEditText.setOnFocusChangeListener { view, _ ->
 
@@ -104,18 +115,21 @@ class SignUpFragment : Fragment() {
 
                 } else {
 
-                    passwordEditText.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, event ->
-                        if (actionId == EditorInfo.IME_ACTION_NEXT || event.keyCode == KeyEvent.KEYCODE_ENTER) {
-                            if (passwordEditText.text.isNotBlank() && viewModel.passwordIsValid.value == true) {
-                                repeatPasswordEditText.requestFocus()
-                            } else {
-                                viewModel.showPasswordError()
-                            }
-                            return@OnEditorActionListener true
-                        }
-                        false
-                    })
+                    repeatPasswordEditText.onTextChanged { viewModel.onRepeatPasswordChanged(it) }.also {
 
+                        repeatPasswordEditText.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, event ->
+                            if (actionId == EditorInfo.IME_ACTION_NEXT || event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                                if (passwordEditText.text.isNotBlank() && viewModel.passwordIsValid.value == true) {
+                                    signUpButton.requestFocus()
+                                } else {
+                                    viewModel.showRepeatPasswordError()
+                                }
+                                return@OnEditorActionListener true
+                            }
+                            false
+                        })
+
+                    }
                 }
 
             }
@@ -127,23 +141,28 @@ class SignUpFragment : Fragment() {
         passwordEditText: EditText,
         repeatPasswordEditText: EditText
     ) {
+
         passwordEditText.setOnFocusChangeListener { view, _ ->
             if (view.hasFocus()) {
                 if (emailEditText.text.isBlank() || viewModel.emailIsValid.value == false) {
                     changeFocusToAnotherView(view, emailEditText)
                     sendEmailErrorMessage()
                 } else {
-                    passwordEditText.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, event ->
-                        if (actionId == EditorInfo.IME_ACTION_NEXT || event.keyCode == KeyEvent.KEYCODE_ENTER) {
-                            if (passwordEditText.text.isNotBlank() && viewModel.passwordIsValid.value == true) {
-                                repeatPasswordEditText.requestFocus()
-                            } else {
-                                viewModel.showPasswordError()
+                    passwordEditText.onTextChanged { viewModel.onPasswordChanged(it) }.also {
+
+                        passwordEditText.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, event ->
+                            if (actionId == EditorInfo.IME_ACTION_NEXT || event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                                if (passwordEditText.text.isNotBlank() && viewModel.repeatPasswordIsValid.value == true) {
+                                    repeatPasswordEditText.requestFocus()
+                                } else {
+                                    viewModel.showPasswordError()
+                                }
+                                return@OnEditorActionListener true
                             }
-                            return@OnEditorActionListener true
-                        }
-                        false
-                    })
+                            false
+                        })
+
+                    }
                 }
             }
         }
