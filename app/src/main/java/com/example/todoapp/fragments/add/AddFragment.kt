@@ -48,7 +48,7 @@ class AddFragment : Fragment() {
                 if (menuItem.itemId == R.id.menu_add) {
                     insertDataToDb()
                 } else if (menuItem.itemId == android.R.id.home) {
-                    requireActivity().onBackPressed()
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
                 }
                 return true
             }
