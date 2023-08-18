@@ -53,7 +53,7 @@ class UpdateFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.menu_save -> updateItem()
                     R.id.menu_delete -> confirmItemRemoval()
-                    android.R.id.home -> requireActivity().onBackPressed()
+                    android.R.id.home -> requireActivity().onBackPressedDispatcher.onBackPressed()
                 }
                 return true
             }

@@ -83,7 +83,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
                         mToDoViewModel.sortByLowPriority.observe(viewLifecycleOwner) {
                             adapter.setData(it)
                         }
-                    android.R.id.home -> requireActivity().onBackPressed()
+                    android.R.id.home -> requireActivity().onBackPressedDispatcher.onBackPressed()
                 }
                 return true
             }
@@ -145,7 +145,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         val searchQuery = "%$query%"
 
         mToDoViewModel.searchDatabase(searchQuery).observeOnce(viewLifecycleOwner) { list ->
-            list?.let {
+            list.let {
                 Log.d("ListFragment", "searchThroughDatabase")
                 adapter.setData(it)
             }
